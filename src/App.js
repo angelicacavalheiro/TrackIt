@@ -1,7 +1,5 @@
 import "./reset.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Topo from "./componentes/Topo"
-import Menu from "./componentes/Menu"
 import Login from "./componentes/Login";
 import Cadastro from "./componentes/Cadastro";
 import Habitos from "./componentes/Habitos";
@@ -14,10 +12,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Topo />    
-      <Menu />    
-
-      <Switch>
+        <Switch>
 
         <Route path="/" exact>
           <Login />
@@ -35,9 +30,9 @@ function App() {
           <Hoje/>
         </ Route>
 
-        <Route path="/historico" exact>
-          <Historico/>
-        </ Route>  
+        {/* <Route path="/historico" exact>
+          <Historico />
+        </ Route> */}
 
       </ Switch>       
     </ BrowserRouter>   
