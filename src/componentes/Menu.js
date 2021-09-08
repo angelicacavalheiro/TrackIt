@@ -1,11 +1,18 @@
 import styled from 'styled-components';
+import { Link } from "react-router-dom";
 
 export default function Menu(){
     return (
         <Container>
-            <p>Habitos</p>
-            <p>Hoje</p>
-            <p>Historico</p>        
+            <Link to={`/habitos`} style={{textDecoration: 'none'}}>
+                <p>Habitos</p>
+            </Link>
+            <Link to={`/hoje`} style={{textDecoration: 'none'}}>
+                <p>Hoje</p>
+            </Link>
+            <Link to={`/historico`} style={{textDecoration: 'none'}}>
+                <p>Historico</p> 
+            </Link>                  
         </Container>
     )
 }

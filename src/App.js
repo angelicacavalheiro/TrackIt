@@ -5,7 +5,6 @@ import Cadastro from "./componentes/Cadastro";
 import Habitos from "./componentes/Habitos";
 import Hoje from "./componentes/Hoje";
 import Historico from "./componentes/Historico";
-import { useState} from "react";
 
 function App() {
 
@@ -30,9 +29,9 @@ function App() {
           <Hoje/>
         </ Route>
 
-        {/* <Route path="/historico" exact>
+        <Route path="/historico" exact>
           <Historico />
-        </ Route> */}
+        </ Route> 
 
       </ Switch>       
     </ BrowserRouter>   

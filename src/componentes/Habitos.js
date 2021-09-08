@@ -33,7 +33,7 @@ export default function Habitos(){
             <MostrarHabito>
                 <div>
                     <p>Valor pego do Input</p>
-                    <button> Lixeira </button>
+                    <ion-icon name="trash-outline"></ion-icon>
                 </div>
                 <Dias>
                     <button> D </button>
@@ -59,7 +59,7 @@ export default function Habitos(){
 }
 
 const Container = styled.div`
-    background: #E5E5E5;
+    background: #F2F2F2;
     width: 100vw;
     height: 100vh;
     padding-top: 80px;   
@@ -79,8 +79,7 @@ const AbrirHabito = styled.div`
     color: #126BA5;
    
     
-    button{
-        font-family: Lexend Deca;      
+    button{   
         font-size: 26.976px;
         line-height: 34px;
         text-align: center;
@@ -111,18 +110,15 @@ const Dias = styled.div`
         height: 30px;
         font-family: Lexend Deca;
         font-size: 19.976px;
-        line-height: 25px;
-        
-
+        line-height: 25px;       
         border: 1px solid #D5D5D5;
         box-sizing: border-box;
         border-radius: 5px;
-
         background: #FFFFFF;
         color: #DBDBDB;
         //se o dia for selecionado, muda
         //background: #CFCFCF;        
-        //color: #FFFFFF;       
+        //color: #FFFFFF;      
 
     }
     
@@ -212,6 +208,12 @@ const MostrarHabito = styled.div`
     div{
         display: flex;
         justify-content: space-between;
+    }
+
+    ion-icon{
+        color: #666666;
+        margin-top: 11px;
+        margin-right: 10px;
     }
 `;
 

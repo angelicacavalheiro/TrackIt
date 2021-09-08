@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import logo from '.././assets/logo.png';
+import { Link } from "react-router-dom";
 
 export default function Cadastro(){
     return (
@@ -10,7 +11,9 @@ export default function Cadastro(){
             <input type="text" nome="input" placeholder="nome" />
             <input type="text" foto="input" placeholder="foto" />
             <button> Cadastrar </button>
-            <p>Já tem uma conta? Faça login!</p>
+            <Link to={`/`} style={{textDecoration: 'none'}}>
+                <p>Já tem uma conta? Faça login!</p>
+            </Link>
         </Container>
     )
 }

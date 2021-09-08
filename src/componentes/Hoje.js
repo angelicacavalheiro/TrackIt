@@ -19,7 +19,7 @@ export default function Hoje(){
                         <h2>Sequência atual: 3 dias </h2>
                         <h2>Seu recorde: 5 dias</h2>
                      </div>
-                     <Check> Icone check </Check>
+                     <ion-icon name="checkmark-outline"></ion-icon>
         
                  </div>
                 
@@ -32,7 +32,7 @@ export default function Hoje(){
  }
  
  const Container = styled.div`
-     background: #E5E5E5;
+     background: #F2F2F2;
      width: 100vw;
      height: 100vh;
      padding-top: 80px;   
@@ -114,15 +114,19 @@ export default function Hoje(){
 
          }
      }
+
+     ion-icon{
+        width: 69px;
+        height: 69px;
+        background: #8FC549;
+        //cor se n foi feito ainda
+        //background-color: #EBEBEB;
+        border-radius: 5px; 
+        padding: 0px;
+        color: #FFFFFF;
+     }
  `;
 
-const Check = styled.div`
-    width: 69px;
-    height: 69px;
-    background: #8FC549;
-    border-radius: 5px; 
-    padding: 15px;
- `;
- 
+
 
  
