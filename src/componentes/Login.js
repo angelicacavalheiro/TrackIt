@@ -2,9 +2,11 @@ import styled from 'styled-components';
 import logo from '.././assets/logo.png';
 import { Link } from "react-router-dom";
 
+const enabled = true;
+
 export default function Login(){
     return (
-        <Container>
+        <Container habilitado={enabled}>
             <Logo src={logo}/>
             <input type="text" email="input" placeholder="email" />
             <input type="text" senha="input" placeholder="senha" />
@@ -15,6 +17,7 @@ export default function Login(){
         </Container>
     )
 }
+
 
 const Container = styled.div`
     display: flex;
@@ -39,7 +42,6 @@ const Container = styled.div`
     input{
         width: 303px;
         height: 45px;
-        background: #FFFFFF;
         border: 1px solid #D5D5D5;
         box-sizing: border-box;
         border-radius: 5px;
@@ -47,6 +49,8 @@ const Container = styled.div`
         font-size: 19.976px;
         line-height: 25px;
         color: #DBDBDB;
+        opacity: ${props => props.habilitado ? 1 : 0.7};    
+        background: ${props => props.habilitado ? "#FFFFFF" : "#F2F2F2"};    
     }
 
     button{
@@ -61,6 +65,7 @@ const Container = styled.div`
         line-height: 26px;
         text-align: center;
         color: #FFFFFF;
+        opacity: ${props => props.habilitado ? 1 : 0.7};
     }
 `;
 

@@ -2,11 +2,15 @@ import styled from 'styled-components';
 import Topo from "./Topo"
 import Menu from "./Menu"
 
+
 export default function Hoje(){
+
+    const completo = false;
+
     return (
         <>
          <Topo/>
-         <Container>
+         <Container completado={completo}>
              <ConclusaoDeHabito>
                  <p>Segunda, 17/07</p>
                  <h1> Nenhum habito concluido ainda </h1>
@@ -23,8 +27,7 @@ export default function Hoje(){
         
                  </div>
                 
-             </MostrarHabito>                 
-   
+             </MostrarHabito>               
          </Container>
          <Menu/>
         </>
@@ -118,9 +121,7 @@ export default function Hoje(){
      ion-icon{
         width: 69px;
         height: 69px;
-        background: #8FC549;
-        //cor se n foi feito ainda
-        //background-color: #EBEBEB;
+        background: ${props => props.completado ? "#EBEBEB" : "#8FC549"}; 
         border-radius: 5px; 
         padding: 0px;
         color: #FFFFFF;

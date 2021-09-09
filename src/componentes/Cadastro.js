@@ -1,16 +1,46 @@
 import styled from 'styled-components';
 import logo from '.././assets/logo.png';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useState } from 'react';
+import axios from "axios"
 
 export default function Cadastro(){
+
+    const[email, setEmail] = useState("")
+    const[senha, setSenha] = useState("")
+    const[nome, setNome] = useState("")
+    const[foto, setFoto] = useState("")
+
+    const history = useHistory()
+
+    function Cadastrar(){
+        const body = {email: email,
+            name: nome,
+            image: foto,
+            password: senha}
+
+        axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up', body)
+        .then(res => {
+            console.log(res.data)
+            history.push('/')
+        })
+
+        .catch(err => console.log)
+        alert("tente novamente")
+    }    
+
     return (
         <Container>
             <Logo src={logo}/>
-            <input type="text" email="input" placeholder="email" />
-            <input type="text" senha="input" placeholder="senha" />
-            <input type="text" nome="input" placeholder="nome" />
-            <input type="text" foto="input" placeholder="foto" />
-            <button> Cadastrar </button>
+            <input type="text" email="input" placeholder="email" 
+            value={email} onChange={(e) => setEmail(e.target.value)}/>
+            <input type="text" senha="input" placeholder="senha" 
+            value={senha} onChange={(e) => setSenha(e.target.value)}/>
+            <input type="text" nome="input" placeholder="nome" 
+            value={nome} onChange={(e) => setNome(e.target.value)}/>
+            <input type="text" foto="input" placeholder="foto"
+            value={foto} onChange={(e) => setFoto(e.target.value)} />
+            <button onClick={Cadastrar}> Cadastrar </button>
             <Link to={`/`} style={{textDecoration: 'none'}}>
                 <p>Já tem uma conta? Faça login!</p>
             </Link>
