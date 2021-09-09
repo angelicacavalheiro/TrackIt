@@ -25,9 +25,12 @@ export default function Cadastro(){
             history.push('/')
         })
 
-        .catch(err => console.log)
-        alert("tente novamente")
-    }    
+        .catch(err => {
+            console.log(err)
+            alert("tente novamente")
+    })
+    
+}
 
     return (
         <Container>

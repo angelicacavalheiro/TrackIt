@@ -1,23 +1,47 @@
 import styled from 'styled-components';
 import logo from '.././assets/logo.png';
-import { Link } from "react-router-dom";
+import { Link, useHistory} from "react-router-dom";
+import { useState } from 'react';
+import axios from "axios"
 
 const enabled = true;
 
 export default function Login(){
+
+    const[email, setEmail] = useState("")
+    const[senha, setSenha] = useState("")
+
+    const history = useHistory();
+
+    function Entrar(){
+        const body = {email: email, password: senha}
+
+        axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login', body)
+        .then(res => {
+            console.log(res.data)
+            history.push('/hoje')
+        })
+
+        .catch(err => {
+            console.log(err)        
+            alert("tente novamente")
+        })
+    }
+
     return (
         <Container habilitado={enabled}>
             <Logo src={logo}/>
-            <input type="text" email="input" placeholder="email" />
-            <input type="text" senha="input" placeholder="senha" />
-            <button> Entrar </button>
+            <input type="text" email="input" placeholder="email"
+            value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input type="text" senha="input" placeholder="senha" 
+            value={senha} onChange={(e) => setSenha(e.target.value)}/>
+            <button onClick={Entrar}> Entrar </button>
             <Link to={`/cadastro`}>
                 <p>Não tem uma conta? Cadastre-se!</p>
             </Link>
         </Container>
     )
 }
-
 
 const Container = styled.div`
     display: flex;
