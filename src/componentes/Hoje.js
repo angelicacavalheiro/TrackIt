@@ -1,11 +1,14 @@
 import styled from 'styled-components';
 import Topo from "./Topo"
 import Menu from "./Menu"
-import { useEffect } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import axios from "axios"
+import UserContext from '.././contexts/UserContext';
 
+export default function Hoje(){
 
-export default function Hoje({token}){
+    const {user, setUser} = useContext(UserContext);
+    const [habitos, setHabitos] = useState()
 
     //para listar os habitos de hoje
 
@@ -13,27 +16,24 @@ export default function Hoje({token}){
 
         const config = {
             headers:{
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${user.token}`
             }
         }
 
         axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', config)
         .then(res => {
             console.log(res.data)
+            setHabitos(res.data)
+            console.log(habitos)
         })        
 
     }, []);
 
 
-    // para marcar o habito como feito
-
-    const id = 3068;
-
-    useEffect(() => {
-
+    function Check(id){
         const config = {
             headers:{
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${user.token}`
             }
         }
 
@@ -42,28 +42,24 @@ export default function Hoje({token}){
         axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`, {}, config)
         .then(res => {
             console.log(res.data)
-        })        
+        })    
 
-    }, []);
-
-    //para desmarcar o habito como feito 
-
-    useEffect(() => {
-
+    }
+   
+    function Uncheck(id){
+       
         const config = {
             headers:{
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${user.token}`
             }
         }
 
         axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`, {}, config)
         .then(res => {
             console.log(res.data)
-        })        
+        })       
 
-    }, []);
-
-
+    }  
 
     const completo = false;
 
@@ -76,18 +72,24 @@ export default function Hoje({token}){
                  <h1> Nenhum habito concluido ainda </h1>
              </ConclusaoDeHabito>   
   
-             <MostrarHabito>
-                 <div>
-                     <div>
-                        <h1>Valor pego do Input</h1>
-                        <h2>Sequência atual: 3 dias </h2>
-                        <h2>Seu recorde: 5 dias</h2>
-                     </div>
-                     <ion-icon name="checkmark-outline"></ion-icon>
-        
-                 </div>
-                
-             </MostrarHabito>               
+             { (habitos !== undefined) ? 
+                        habitos.map((habito) => (
+                            <MostrarHabito>
+                                <div>  
+                                    <div>
+                                        <h1>{habito.name}</h1>
+                                        <h2>Sequência atual: {habito.currentSequence} dias </h2>
+                                        <h2>Seu recorde: {habito.highestSequence} dias</h2>
+                                    </div>   
+                                    <ion-icon name="checkmark-outline"></ion-icon>
+                                </div>
+                            </MostrarHabito>                            
+                    )) 
+                    :
+                    null                    
+                    }                         
+            
+
          </Container>
          <Menu/>
         </>
@@ -97,7 +99,7 @@ export default function Hoje({token}){
  const Container = styled.div`
      background: #F2F2F2;
      width: 100vw;
-     height: 100vh;
+     height: 100%;
      padding-top: 80px;   
      padding-bottom: 80px;   
  `;
@@ -146,7 +148,7 @@ export default function Hoje({token}){
      height: 91px;
      background: #FFFFFF;
      border-radius: 5px;
-     margin: 0 auto;   
+     margin: 0 auto 10px auto;   
      color: #DBDBDB;
      border: 1px solid #D5D5D5; 
      padding: 10px;

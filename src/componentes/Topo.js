@@ -6,7 +6,6 @@ import UserContext from '.././contexts/UserContext';
 export default function Topo(){
     
     const {user} = useContext(UserContext);
-    console.log(user.image)
 
     return (
         <Container>
@@ -17,6 +16,10 @@ export default function Topo(){
 }
 
 const Container = styled.div`
+    position: fixed;
+    z-index: 1;
+    left: 0px;
+    top: 0px;
     width: 100vw;
     height: 70px;
     background: #126BA5;
