@@ -35,11 +35,16 @@ export default function Login(){
     return (
         <Container habilitado={enabled}>
             <Logo src={logo}/>
-            <input type="text" email="input" placeholder="email"
-            value={email} onChange={(e) => setEmail(e.target.value)} />
-            <input type="text" senha="input" placeholder="senha" 
-            value={senha} onChange={(e) => setSenha(e.target.value)}/>
-            <button onClick={Entrar}> Entrar </button>
+
+            <form>
+                <input type="email" email="input" placeholder="email"
+                value={email} required onChange={(e) => setEmail(e.target.value)} />
+                <input type="password" senha="input" placeholder="senha" 
+                value={senha} onChange={(e) => setSenha(e.target.value)}/>
+                <button onClick={Entrar}> Entrar </button>
+            </form>
+
+            
             <Link to={`/cadastro`}>
                 <p>Não tem uma conta? Cadastre-se!</p>
             </Link>
@@ -94,6 +99,12 @@ const Container = styled.div`
         text-align: center;
         color: #FFFFFF;
         opacity: ${props => props.habilitado ? 1 : 0.7};
+    }
+
+    form {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
     }
 `;
 

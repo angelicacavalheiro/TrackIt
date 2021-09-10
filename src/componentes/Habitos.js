@@ -3,7 +3,7 @@ import Topo from "./Topo"
 import Menu from "./Menu"
 import CriarHabito from './CriarHabito';
 import MostrarHabito from './MostrarHabito';
-import { useState, useEffect, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import axios from "axios"
 import UserContext from '.././contexts/UserContext';
 

@@ -35,18 +35,20 @@ export default function Cadastro(){
     return (
         <Container>
             <Logo src={logo}/>
-            <input type="text" email="input" placeholder="email" 
-            value={email} onChange={(e) => setEmail(e.target.value)}/>
-            <input type="text" senha="input" placeholder="senha" 
-            value={senha} onChange={(e) => setSenha(e.target.value)}/>
-            <input type="text" nome="input" placeholder="nome" 
-            value={nome} onChange={(e) => setNome(e.target.value)}/>
-            <input type="text" foto="input" placeholder="foto"
-            value={foto} onChange={(e) => setFoto(e.target.value)} />
-            <button onClick={Cadastrar}> Cadastrar </button>
-            <Link to={`/`} style={{textDecoration: 'none'}}>
-                <p>Já tem uma conta? Faça login!</p>
-            </Link>
+            <form>
+                <input type="email" email="input" required placeholder="email" 
+                value={email} onChange={(e) => setEmail(e.target.value)}/>
+                <input type="password" senha="input" placeholder="senha" 
+                value={senha} onChange={(e) => setSenha(e.target.value)}/>
+                <input type="text" nome="input" required placeholder="nome" 
+                value={nome} onChange={(e) => setNome(e.target.value)}/>
+                <input type="URL" foto="input" required placeholder="foto"
+                value={foto} onChange={(e) => setFoto(e.target.value)} />
+                <button onClick={Cadastrar}> Cadastrar </button>
+                <Link to={`/`} style={{textDecoration: 'none'}}>
+                    <p>Já tem uma conta? Faça login!</p>
+                </Link>
+            </form>
         </Container>
     )
 }
@@ -96,6 +98,12 @@ const Container = styled.div`
         line-height: 26px;
         text-align: center;
         color: #FFFFFF;
+    }
+
+    form {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
     }
 `;
 
