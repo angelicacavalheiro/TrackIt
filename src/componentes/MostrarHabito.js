@@ -1,6 +1,26 @@
 import styled from 'styled-components';
+import { useContext } from 'react';
+import axios from "axios"
+import UserContext from '.././contexts/UserContext';
 
 export default function MostrarHabito(){
+
+    const {user, setUser} = useContext(UserContext);
+
+    const id = 3067;
+
+    const config = {
+        headers:{
+            Authorization: `Bearer ${user.token}`
+        }
+    }     
+
+    axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`, config)  
+    .then(res => {  
+        // console.log(res);  
+        // console.log(res.data);  
+    }) 
+    
 
    
     return (      

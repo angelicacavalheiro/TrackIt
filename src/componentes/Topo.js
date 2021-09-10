@@ -1,12 +1,17 @@
 import styled from 'styled-components';
 import Logo from '.././assets/miniLogo.png';
-import Bob from '.././assets/bob.png';
+import { useContext } from 'react';
+import UserContext from '.././contexts/UserContext';
 
 export default function Topo(){
+    
+    const {user} = useContext(UserContext);
+    console.log(user.image)
+
     return (
         <Container>
             <LogoTopo src={Logo}/>
-            <BobTopo src={Bob}/>
+            <BobTopo src={user.image}/>
         </Container>
     )
 }

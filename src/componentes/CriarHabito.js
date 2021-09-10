@@ -1,8 +1,31 @@
 import styled from 'styled-components';
+import { useEffect, useContext } from 'react';
+import axios from "axios"
+import UserContext from '.././contexts/UserContext';
 
 const enabled = true;
 
 export default function CriarHabito(){
+
+    const {user, setUser} = useContext(UserContext);
+
+    const config = {
+        headers:{
+            Authorization: `Bearer ${user.token}`
+        }
+    }
+
+    const body = {
+        name: "Tomar banho",
+        days: [1, 2, 3, 4, 5]
+    }
+
+    axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', body, config)
+    .then(res => {
+        console.log(res.data)
+    })        
+
+
     return (
         <Criar habilitado={enabled}>
                 <input type="text" email="input" placeholder="nome do hábito" />

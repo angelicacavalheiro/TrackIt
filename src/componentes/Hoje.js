@@ -1,9 +1,69 @@
 import styled from 'styled-components';
 import Topo from "./Topo"
 import Menu from "./Menu"
+import { useEffect } from 'react';
+import axios from "axios"
 
 
-export default function Hoje(){
+export default function Hoje({token}){
+
+    //para listar os habitos de hoje
+
+    useEffect(() => {
+
+        const config = {
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', config)
+        .then(res => {
+            console.log(res.data)
+        })        
+
+    }, []);
+
+
+    // para marcar o habito como feito
+
+    const id = 3068;
+
+    useEffect(() => {
+
+        const config = {
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        console.log(config)
+
+        axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`, {}, config)
+        .then(res => {
+            console.log(res.data)
+        })        
+
+    }, []);
+
+    //para desmarcar o habito como feito 
+
+    useEffect(() => {
+
+        const config = {
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`, {}, config)
+        .then(res => {
+            console.log(res.data)
+        })        
+
+    }, []);
+
+
 
     const completo = false;
 

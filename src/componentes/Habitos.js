@@ -3,8 +3,31 @@ import Topo from "./Topo"
 import Menu from "./Menu"
 import CriarHabito from './CriarHabito';
 import MostrarHabito from './MostrarHabito';
+import { useState, useEffect, useContext } from 'react';
+import axios from "axios"
+import UserContext from '.././contexts/UserContext';
+
 
 export default function Habitos(){
+
+    const {user, setUser} = useContext(UserContext);
+
+    useEffect(() => {
+
+        const config = {
+            headers:{
+                Authorization: `Bearer ${user.token}`
+            }
+        } 
+
+        axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', config)
+        .then(res => {
+            console.log(res.data)
+        })        
+
+    }, []);
+
+
     return (
        <>
         <Topo/>
