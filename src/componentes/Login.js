@@ -16,7 +16,10 @@ export default function Login(){
 
     const history = useHistory();
 
-    function Entrar(){
+    function Entrar(event) {
+
+		event.preventDefault(); // impede o redirecionamento
+        
         const body = {email: email, password: senha}
 
         axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login', body)
@@ -36,7 +39,7 @@ export default function Login(){
         <Container habilitado={enabled}>
             <Logo src={logo}/>
 
-            <form>
+            <form onSubmit={Entrar}>
                 <input type="email" email="input" placeholder="email"
                 value={email} required onChange={(e) => setEmail(e.target.value)} />
                 <input type="password" senha="input" placeholder="senha" 

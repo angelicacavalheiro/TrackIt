@@ -8,6 +8,8 @@ import HabitosdoDia from './HabitosdoDia';
 
 export default function Hoje(){
 
+    const completo = true;
+
     const {user, setUser} = useContext(UserContext);
     const [habitos, setHabitos] = useState()
 
@@ -61,7 +63,6 @@ export default function Hoje(){
 
     }  
 
-    const completo = false;
 
     return (
         <>
@@ -80,7 +81,6 @@ export default function Hoje(){
                     null                    
                     }                         
             
-
          </Container>
          <Menu/>
         </>

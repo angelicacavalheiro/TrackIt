@@ -13,7 +13,10 @@ export default function Cadastro(){
 
     const history = useHistory()
 
-    function Cadastrar(){
+    function Cadastrar(event) {
+
+		event.preventDefault(); // impede o redirecionamento
+        
         const body = {email: email,
             name: nome,
             image: foto,
@@ -33,9 +36,9 @@ export default function Cadastro(){
 }
 
     return (
-        <Container>
+        <Container >
             <Logo src={logo}/>
-            <form>
+            <form onSubmit={Cadastrar}>
                 <input type="email" email="input" required placeholder="email" 
                 value={email} onChange={(e) => setEmail(e.target.value)}/>
                 <input type="password" senha="input" placeholder="senha" 

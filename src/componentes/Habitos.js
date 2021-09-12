@@ -3,14 +3,19 @@ import Topo from "./Topo"
 import Menu from "./Menu"
 import CriarHabito from './CriarHabito';
 import MostrarHabito from './MostrarHabito';
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import axios from "axios"
 import UserContext from '.././contexts/UserContext';
 
 
-export default function Habitos(){
+export default function Habitos(){   
 
     const {user, setUser} = useContext(UserContext);
+    const [adicionarHabito, setAdicionarHabito] = useState(false);
+
+    function adicionaHabito(){
+        setAdicionarHabito(true)  
+    }
 
     useEffect(() => {
 
@@ -34,11 +39,10 @@ export default function Habitos(){
         <Container>
             <AbrirHabito>
                 <p>Meus hábitos</p>
-                <button> + </button>
+                <button onClick={adicionaHabito} > + </button>                
             </AbrirHabito>   
-
-            <CriarHabito />
-                
+            {(adicionarHabito === true) ? <CriarHabito /> : null }
+            
             <MostrarHabito />                  
 
             <NenhumHabito>

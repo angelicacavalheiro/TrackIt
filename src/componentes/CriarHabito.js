@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import axios from "axios"
 import UserContext from '.././contexts/UserContext';
 
@@ -7,40 +7,70 @@ const enabled = true;
 
 export default function CriarHabito(){
 
+    
     const {user, setUser} = useContext(UserContext);
+    const[name, setName] = useState("");
+    const[days, setDays] = useState([]);
 
-    const config = {
-        headers:{
-            Authorization: `Bearer ${user.token}`
+   
+
+    function Salvar(){
+        const config = {
+            headers:{
+                Authorization: `Bearer ${user.token}`
+            }
         }
-    }
+    
+        const body = {name, days}
+    
+        axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', body, config)
+        .then(res => {
+            console.log(res.data)
+        })    
+    }   
+    
+    function incrementaDia(dia){
+        
+        setDays([...days, dia]) //logica pra incrementar ok!
 
-    const body = {
-        name: "Tomar banho",
-        days: [1, 2, 3, 4, 5]
-    }
+        days.forEach((day) => {
+            if (day===dia){ //logica pra decrementar ok!
 
-    axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', body, config)
-    .then(res => {
-        console.log(res.data)
-    })        
+                console.log("vou remover");
+                let arrayDias = [...days]; 
+                let index = arrayDias.indexOf(day)  
+
+                if (index !== -1) {
+                    arrayDias.splice(index, 1);                   
+    
+                    setDays([...arrayDias])
+                  }
+
+            } else
+            {
+                console.log("nao vou fazer nada") 
+            }
+            })
+    }
+    console.log(days)
 
 
     return (
         <Criar habilitado={enabled}>
-                <input type="text" email="input" placeholder="nome do hábito" />
+                <input type="text" name="input" placeholder="nome do hábito" 
+                value={name} onChange={(e) => setName(e.target.value)}/>
                 <Dias>
-                    <button> D </button>
-                    <button> S </button>
-                    <button> T </button>
-                    <button> Q </button>
-                    <button> Q </button>
-                    <button> S </button>
-                    <button> S </button>
+                    <button onClick= {() => incrementaDia(7)}> D </button>
+                    <button onClick= {() => incrementaDia(1)}> S </button>
+                    <button onClick= {() => incrementaDia(2)}> T </button>
+                    <button onClick= {() => incrementaDia(3)}> Q </button>
+                    <button onClick= {() => incrementaDia(4)}> Q </button>
+                    <button onClick= {() => incrementaDia(5)}> S </button>
+                    <button onClick= {() => incrementaDia(6)}> S </button>
                 </Dias>
                 <SalvarHabito>
                     <p> Cancelar </p>
-                    <button> Salvar </button>
+                    <button onClick={Salvar}> Salvar </button>
                 </SalvarHabito>                        
             </Criar>                  
     )

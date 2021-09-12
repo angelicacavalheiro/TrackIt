@@ -7,7 +7,7 @@ export default function MostrarHabito(){
 
     const {user, setUser} = useContext(UserContext);
 
-    const id = 3067;
+    const id = 3639;
 
     const config = {
         headers:{
