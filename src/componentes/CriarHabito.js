@@ -60,7 +60,7 @@ export default function CriarHabito(){
                 <input type="text" name="input" placeholder="nome do hábito" 
                 value={name} onChange={(e) => setName(e.target.value)}/>
                 <Dias>
-                    <button onClick= {() => incrementaDia(7)}> D </button>
+                    <button onClick= {() => incrementaDia(0)}> D </button>
                     <button onClick= {() => incrementaDia(1)}> S </button>
                     <button onClick= {() => incrementaDia(2)}> T </button>
                     <button onClick= {() => incrementaDia(3)}> Q </button>

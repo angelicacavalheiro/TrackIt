@@ -2,13 +2,15 @@ import styled from 'styled-components';
 import { useContext } from 'react';
 import axios from "axios"
 import UserContext from '.././contexts/UserContext';
+import Habitos from "./Habitos"
 
-export default function MostrarHabito({habito}){
+export default function MostrarHabito({habito, listaHabito, setListaHabito}){
 
     const {user, setUser} = useContext(UserContext);
 
-    function deletar(){
-        const id = 3639;
+    function deletar({habito}){
+
+        let id = (habito.id)
 
         const config = {
             headers:{
@@ -18,10 +20,14 @@ export default function MostrarHabito({habito}){
 
         axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`, config)  
         .then(res => {  
-            // console.log(res);  
-            // console.log(res.data);  
-        }) 
+            console.log(listaHabito)
+
+            //setListaHabito([...listaHabito])    
+        })    
+
+    
     }
+
     
 
    
@@ -29,7 +35,7 @@ export default function MostrarHabito({habito}){
         <Mostrar>
                 <div>
                     <p>{habito.name}</p>
-                    <ion-icon name="trash-outline"></ion-icon>
+                    <ion-icon onClick={() => deletar({habito})} name="trash-outline"></ion-icon>
                 </div>
 
                 { (habito.day === 1) ?
@@ -44,9 +50,7 @@ export default function MostrarHabito({habito}){
                     <button> S </button>
                     <button> S </button>
                 </Dias>
-            </Mostrar> 
-
-        
+            </Mostrar>        
            
     )
 }

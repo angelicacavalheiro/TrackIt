@@ -34,7 +34,6 @@ export default function Habitos(){
 
     }, []);
 
-    console.log(listaHabito)
 
 
     return (
@@ -50,15 +49,15 @@ export default function Habitos(){
 
             {(listaHabito.length > 0) ?  
                 listaHabito.map((habito) => (
-                    <MostrarHabito habito={habito} />
+                    <MostrarHabito habito={habito} 
+                    listaHabito={listaHabito} 
+                    setListaHabito={setListaHabito} />
                 ))
                 :
                 <NenhumHabito>
                     <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
                 </NenhumHabito>                 
-            } 
-
-                         
+            }                        
     
         </Container>
         <Menu/>
