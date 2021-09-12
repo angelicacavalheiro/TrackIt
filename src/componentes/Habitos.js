@@ -12,6 +12,7 @@ export default function Habitos(){
 
     const {user, setUser} = useContext(UserContext);
     const [adicionarHabito, setAdicionarHabito] = useState(false);
+    const [listaHabito, setListaHabito] = useState([])
 
     function adicionaHabito(){
         setAdicionarHabito(true)  
@@ -28,9 +29,12 @@ export default function Habitos(){
         axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', config)
         .then(res => {
             console.log(res.data)
+            setListaHabito(res.data)
         })        
 
     }, []);
+
+    console.log(listaHabito)
 
 
     return (
@@ -40,15 +44,22 @@ export default function Habitos(){
             <AbrirHabito>
                 <p>Meus hábitos</p>
                 <button onClick={adicionaHabito} > + </button>                
-            </AbrirHabito>   
-            {(adicionarHabito === true) ? <CriarHabito /> : null }
-            
-            <MostrarHabito />                  
+            </AbrirHabito>  
 
-            <NenhumHabito>
-                <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
-            </NenhumHabito>           
-  
+            {(adicionarHabito === true) ? <CriarHabito /> : null }
+
+            {(listaHabito.length > 0) ?  
+                listaHabito.map((habito) => (
+                    <MostrarHabito habito={habito} />
+                ))
+                :
+                <NenhumHabito>
+                    <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
+                </NenhumHabito>                 
+            } 
+
+                         
+    
         </Container>
         <Menu/>
        </>
@@ -58,7 +69,7 @@ export default function Habitos(){
 const Container = styled.div`
     background: #F2F2F2;
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     padding-top: 80px;   
     padding-bottom: 80px;   
 `;

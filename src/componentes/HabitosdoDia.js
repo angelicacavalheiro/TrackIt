@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import { useEffect, useState, useContext } from 'react';
+import { useContext } from 'react';
 import axios from "axios"
 import UserContext from '.././contexts/UserContext';
 
 export default function HabitosdoDia({habito}){
 
-    const {user, setUser} = useContext(UserContext);
+    const {user} = useContext(UserContext);
 
     function Check(id){
         const config = {

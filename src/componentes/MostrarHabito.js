@@ -3,42 +3,51 @@ import { useContext } from 'react';
 import axios from "axios"
 import UserContext from '.././contexts/UserContext';
 
-export default function MostrarHabito(){
+export default function MostrarHabito({habito}){
 
     const {user, setUser} = useContext(UserContext);
 
-    const id = 3639;
+    function deletar(){
+        const id = 3639;
 
-    const config = {
-        headers:{
-            Authorization: `Bearer ${user.token}`
-        }
-    }     
+        const config = {
+            headers:{
+                Authorization: `Bearer ${user.token}`
+            }
+        }     
 
-    axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`, config)  
-    .then(res => {  
-        // console.log(res);  
-        // console.log(res.data);  
-    }) 
+        axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`, config)  
+        .then(res => {  
+            // console.log(res);  
+            // console.log(res.data);  
+        }) 
+    }
     
 
    
-    return (      
+    return (   
         <Mostrar>
-            <div>
-                <p>Valor pego do Input</p>
-                <ion-icon name="trash-outline"></ion-icon>
-            </div>
-            <Dias>
-                <button> D </button>
-                <button> S </button>
-                <button> T </button>
-                <button> Q </button>
-                <button> Q </button>
-                <button> S </button>
-                <button> S </button>
-            </Dias>
-        </Mostrar>        
+                <div>
+                    <p>{habito.name}</p>
+                    <ion-icon name="trash-outline"></ion-icon>
+                </div>
+
+                { (habito.day === 1) ?
+                        
+                    true : null }
+                <Dias>
+                    <button> D </button>
+                    <button> S </button>
+                    <button> T </button>
+                    <button> Q </button>
+                    <button> Q </button>
+                    <button> S </button>
+                    <button> S </button>
+                </Dias>
+            </Mostrar> 
+
+        
+           
     )
 }
 

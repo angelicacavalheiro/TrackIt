@@ -25,9 +25,9 @@ export default function Hoje(){
 
         axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', config)
         .then(res => {
-            console.log(res.data)
+            //console.log(res.data)
             setHabitos(res.data)
-            console.log(habitos)
+            //console.log(habitos)
         })        
 
     }, []);
@@ -40,11 +40,11 @@ export default function Hoje(){
             }
         }
 
-        console.log(config)
+        //console.log(config)
 
         axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`, {}, config)
         .then(res => {
-            console.log(res.data)
+            //console.log(res.data)
         })    
     }
    
@@ -58,7 +58,7 @@ export default function Hoje(){
 
         axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`, {}, config)
         .then(res => {
-            console.log(res.data)
+            //console.log(res.data)
         })       
 
     }  
@@ -74,12 +74,12 @@ export default function Hoje(){
              </ConclusaoDeHabito>   
   
              { (habitos !== undefined) ? 
-                        habitos.map((habito) => (
-                            <HabitosdoDia habito={habito}/>                          
-                    )) 
-                    :
-                    null                    
-                    }                         
+                    habitos.map((habito) => (
+                        <HabitosdoDia habito={habito}/>                          
+                )) 
+                :
+                null                    
+             }                         
             
          </Container>
          <Menu/>
