@@ -88,7 +88,7 @@ const Criar = styled.div`
     color: #DBDBDB;
     border: 1px solid #D5D5D5; 
     margin-bottom: 10px;  
-    opacity: ${props => props.loading ? 1 : 0.7}; 
+    opacity: ${props => props.loading ? 0.7 : 1}; 
     
 
     input{
@@ -98,6 +98,7 @@ const Criar = styled.div`
         border: 1px solid #D5D5D5;
         box-sizing: border-box;
         border-radius: 5px;
+        font-family: Lexend Deca;
         opacity: ${props => props.loading ? 0.7 : 1};    
         background: ${props => props.loading ? "#F2F2F2" : "#FFFFFF"};  
         pointer-events: ${props => props.loading ? "none" : "visiblePainted"};      

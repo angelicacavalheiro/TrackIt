@@ -6,14 +6,15 @@ import Habitos from "./Habitos"
 import MostrarDias from './MostrarDias';
 
 
-export default function MostrarHabito({habito}){
+export default function MostrarHabito({habito, setListaHabito}){
 
     const {user, setUser} = useContext(UserContext);
 
     function deletar({habito}){
 
-        let confirma = prompt("se você quer deletar escreva, confirma")
-        if (confirma === "confirma"){
+        let resultado = window.confirm("Tem certeza que deseja deletar?");
+        
+        if (resultado === true){
 
             let id = (habito.id)
             const config = {
@@ -22,11 +23,22 @@ export default function MostrarHabito({habito}){
                 }
             }   
             axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`, config)  
-            .then(res => {                      
+            .then(res => { 
+
+                const config = {
+                    headers:{
+                        Authorization: `Bearer ${user.token}`
+                    }
+                }         
+                axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', config)
+                .then(res => {
+                    console.log(res.data)
+                    setListaHabito(res.data)
+                               
+                })                   
             }) 
         }      
     }   
-
    
     return (   
         <Mostrar>

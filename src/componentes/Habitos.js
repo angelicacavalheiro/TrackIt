@@ -56,6 +56,7 @@ export default function Habitos(){
             {(listaHabito.length > 0) ?  
                 listaHabito.map((habito) => (
                     <MostrarHabito habito={habito} 
+                    setListaHabito={setListaHabito}
                     />
                 ))
                 :
