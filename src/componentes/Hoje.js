@@ -55,7 +55,7 @@ export default function Hoje(){
              <ConclusaoDeHabito value={concluido}>
                  <p> {dayjs().locale('pt-br').format('dddd')}, {dayjs().locale('pt-br').format('DD/MM')} </p>
                  <h1> {(porcentagem == 0) ? "Nenhum hábito concluído ainda" :
-                  `${porcentagem}% dos hábitos concluídos`} </h1>
+                  `${porcentagem.toFixed(2)}% dos hábitos concluídos`} </h1>
              </ConclusaoDeHabito>   
   
              { (habitos !== undefined) ? 
