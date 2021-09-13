@@ -4,6 +4,7 @@ import { Link, useHistory} from "react-router-dom";
 import { useState, useContext } from 'react';
 import axios from "axios"
 import UserContext from '.././contexts/UserContext';
+import Loader from "react-loader-spinner";
 
 export default function Login(){
 
@@ -47,7 +48,11 @@ export default function Login(){
                 value={email} required onChange={(e) => setEmail(e.target.value)} />
                 <input type="password" senha="input" placeholder="senha" 
                 value={senha} onChange={(e) => setSenha(e.target.value)}/>
-                <button onClick={Entrar}> Entrar </button>
+
+                {(loading === true) ? 
+                <button> <Loader type="ThreeDots" color="#00BFFF" height={80} width={80} /> </button>
+                 : <button onClick={Entrar}> Entrar </button>}
+
             </form>
 
             

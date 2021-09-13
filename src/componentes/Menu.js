@@ -1,14 +1,34 @@
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
+import { useContext } from 'react';
+import UserContext from '.././contexts/UserContext';
+import 'react-circular-progressbar/dist/styles.css';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+
 
 export default function Menu(){
+
+    const {porcentagem} = useContext(UserContext);
+
     return (
         <Container>
             <Link to={`/habitos`} style={{textDecoration: 'none'}}>
                 <p>Habitos</p>
             </Link>
             <Link to={`/hoje`} style={{textDecoration: 'none'}}>
-                <p>Hoje</p>
+                <CircularProgressbar
+                    value={porcentagem}
+                    text="hoje"
+                    background
+                    backgroundPadding={6}
+                    styles={buildStyles({
+                    backgroundColor: "#52b6ff",                  
+                    textSize: 18,
+                    textColor: "#fff",
+                    pathColor: "#fff",
+                    trailColor: "transparent"
+                    })}
+                    />
             </Link>
             <Link to={`/historico`} style={{textDecoration: 'none'}}>
                 <p>Historico</p> 

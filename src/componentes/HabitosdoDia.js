@@ -5,12 +5,13 @@ import axios from "axios"
 import UserContext from '.././contexts/UserContext';
 import Hoje from './Hoje';
 
-export default function HabitosdoDia({habito, habitos, setHabitos}){
+export default function HabitosdoDia({habito, calcularPorcentagem, setHabitos}){
 
     const {user} = useContext(UserContext);
-    const [concluido, setConcluido] = useState("#EBEBEB");
+    let done = habito.done ? "#8FC549" : "#EBEBEB";
+    const [concluido, setConcluido] = useState(done);
 
-    function Check({habito}){
+    function Check(){
         setConcluido("#8FC549");
         let id = (habito.id)
         console.log("entrou em check")
@@ -26,13 +27,26 @@ export default function HabitosdoDia({habito, habitos, setHabitos}){
         axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`, {}, config)
         .then(res => {
             console.log("enviou para o servidor")
+
+            const config = {
+                headers:{
+                    Authorization: `Bearer ${user.token}`
+                }
+            }
+    
+            axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', config)
+            .then(res => {
+                setHabitos(res.data)
+                calcularPorcentagem(res.data)
+            })        
+    
             
         })    
 
     }
 
    
-    function Uncheck({habito}){
+    function Uncheck(){
 
         setConcluido("#EBEBEB");
         let id = (habito.id)    
@@ -48,11 +62,26 @@ export default function HabitosdoDia({habito, habitos, setHabitos}){
         .then(res => {
             console.log(res.data)
             console.log("deu uncheck")
+
+            const config = {
+                headers:{
+                    Authorization: `Bearer ${user.token}`
+                }
+            }
+    
+            axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', config)
+            .then(res => {
+                //console.log(res.data)
+                setHabitos(res.data)
+                //console.log(habitos)
+                calcularPorcentagem(res.data)
+            })        
+    
         })      
     }  
 
     return(
-        <MostrarHabitos>
+        <MostrarHabitos value={concluido}>
             <div>  
                 <div>
                     <h1>{habito.name}</h1>
@@ -60,9 +89,9 @@ export default function HabitosdoDia({habito, habitos, setHabitos}){
                     <h2>Seu recorde: {habito.highestSequence} dias</h2>
                 </div>   
                 {(habito.done === true) ?
-                    <ion-icon name="checkmark-outline" onClick={() => Uncheck({habito})} value={concluido}></ion-icon>                   
+                    <ion-icon name="checkmark-outline" onClick={() => Uncheck()}></ion-icon>                   
                     : 
-                    <ion-icon name="checkmark-outline" onClick={() => Check({habito})} value={concluido}></ion-icon> 
+                    <ion-icon name="checkmark-outline" onClick={() => Check()}></ion-icon> 
                     }
             
             </div>
@@ -112,8 +141,7 @@ const MostrarHabitos = styled.div`
      ion-icon{
         width: 69px;
         height: 69px;
-        background-color: #EBEBEB;
-        //background:  ${(props) => props.value};
+        background-color:  ${(props) => props.value};
         border-radius: 5px; 
         padding: 0px;
         color: #FFFFFF;

@@ -13,7 +13,7 @@ export default function MostrarHabito({habito, setListaHabito}){
     function deletar({habito}){
 
         let resultado = window.confirm("Tem certeza que deseja deletar?");
-        
+
         if (resultado === true){
 
             let id = (habito.id)
@@ -48,7 +48,6 @@ export default function MostrarHabito({habito, setListaHabito}){
                 </div>
                 <MostrarDias habito = {habito.days} />
             </Mostrar>        
-           
     )
 }
 

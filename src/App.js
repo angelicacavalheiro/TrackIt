@@ -7,16 +7,18 @@ import Hoje from "./componentes/Hoje";
 import Historico from "./componentes/Historico"
 import { useState } from 'react';
 import UserContext from './contexts/UserContext';
+import Menu from "./componentes/Menu"
 
 function App() {
 
   const [user, setUser] = useState(null)
+  const [porcentagem, setPorcentagem] = useState(0)
 
   return (
     <BrowserRouter>
         <Switch>
 
-        <UserContext.Provider value={{user, setUser}}>
+        <UserContext.Provider value={{user, setUser, porcentagem, setPorcentagem}}>
 
           <Route path="/" exact>
             <Login />
@@ -28,15 +30,18 @@ function App() {
 
           <Route path="/habitos" exact>
             <Habitos />
+            <Menu />
           </ Route>  
 
           <Route path="/hoje" exact>
             <Hoje />
+            <Menu />
           </ Route>
 
           <Route path="/historico" exact>
             <Historico />
-          </ Route> 
+            <Menu />
+          </ Route>
         
           </UserContext.Provider>
 

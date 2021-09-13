@@ -5,12 +5,14 @@ import { useEffect, useState, useContext } from 'react';
 import axios from "axios"
 import UserContext from '.././contexts/UserContext';
 import HabitosdoDia from './HabitosdoDia';
+import 'dayjs/locale/pt-br'
+import dayjs from 'dayjs'
 
 export default function Hoje(){
 
     const completo = true;
 
-    const {user} = useContext(UserContext);
+    const {user, porcentagem, setPorcentagem} = useContext(UserContext);
     const [habitos, setHabitos] = useState()
 
     //para listar os habitos de hoje
@@ -27,10 +29,20 @@ export default function Hoje(){
         .then(res => {
             //console.log(res.data)
             setHabitos(res.data)
+            calcularPorcentagem(res.data)
             //console.log(habitos)
         })        
 
     }, []);
+
+    function calcularPorcentagem(arraydeHabitos){
+
+        const arrayDone = arraydeHabitos.filter( (Habitodone) => Habitodone.done )
+
+        setPorcentagem( (arrayDone.length / arraydeHabitos.length ) * 100 )
+
+
+    }
 
 
     return (
@@ -38,21 +50,22 @@ export default function Hoje(){
          <Topo/>
          <Container completado={completo}>
              <ConclusaoDeHabito>
-                 <p>Segunda, 17/07</p>
-                 <h1> Nenhum habito concluido ainda </h1>
+                 <p> {dayjs().locale('pt-br').format('dddd')} {dayjs().locale('pt-br').format('DD/MM')} </p>
+                 <h1> {porcentagem} </h1>
              </ConclusaoDeHabito>   
   
              { (habitos !== undefined) ? 
                     habitos.map((habito) => (
                         <HabitosdoDia habito={habito}
-                        habitos={habitos} setHabitos={setHabitos}/>                          
+                        calcularPorcentagem={calcularPorcentagem}
+                        setHabitos={setHabitos}/>                          
                 )) 
                 :
                 null                    
              }                         
             
          </Container>
-         <Menu/>
+         <Menu porcentagem={porcentagem}/>
         </>
      )
  }
