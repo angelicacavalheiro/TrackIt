@@ -10,10 +10,13 @@ export default function Cadastro(){
     const[senha, setSenha] = useState("")
     const[nome, setNome] = useState("")
     const[foto, setFoto] = useState("")
+    const[loading, setLoading] = useState(false)
 
     const history = useHistory()
 
     function Cadastrar(event) {
+
+        setLoading(true)
 
 		event.preventDefault(); // impede o redirecionamento
         
@@ -24,11 +27,13 @@ export default function Cadastro(){
 
         axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up', body)
         .then(res => {
+            setLoading(false)
             console.log(res.data)
             history.push('/')
         })
 
         .catch(err => {
+            setLoading(false)
             console.log(err)
             alert("tente novamente")
     })
@@ -36,7 +41,7 @@ export default function Cadastro(){
 }
 
     return (
-        <Container >
+        <Container loading={loading} >
             <Logo src={logo}/>
             <form onSubmit={Cadastrar}>
                 <input type="email" email="input" required placeholder="email" 
@@ -78,14 +83,16 @@ const Container = styled.div`
     input{
         width: 303px;
         height: 45px;
-        background: #FFFFFF;
         border: 1px solid #D5D5D5;
         box-sizing: border-box;
         border-radius: 5px;
         margin: 0 auto 6px auto;
         font-size: 19.976px;
         line-height: 25px;
-        color: #DBDBDB;
+        color: black;
+        opacity: ${props => props.loading ? 0.7 : 1};    
+        background: ${props => props.loading ? "#F2F2F2" : "#FFFFFF"};  
+        pointer-events: ${props => props.loading ? "none" : "visiblePainted"};
     }
 
 
@@ -101,6 +108,8 @@ const Container = styled.div`
         line-height: 26px;
         text-align: center;
         color: #FFFFFF;
+        opacity: ${props => props.loading ? 0.7 : 1};
+        pointer-events: ${props => props.loading ? "none" : "visiblePainted"};
     }
 
     form {

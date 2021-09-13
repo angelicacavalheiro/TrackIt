@@ -5,20 +5,21 @@ import { useState, useContext } from 'react';
 import axios from "axios"
 import UserContext from '.././contexts/UserContext';
 
-const enabled = true;
-
 export default function Login(){
 
     const {user, setUser} = useContext(UserContext);
 
     const[email, setEmail] = useState("")
     const[senha, setSenha] = useState("")
+    const[loading, setLoading] = useState(false)
 
     const history = useHistory();
 
     function Entrar(event) {
 
 		event.preventDefault(); // impede o redirecionamento
+
+        setLoading(true)
         
         const body = {email: email, password: senha}
 
@@ -27,16 +28,18 @@ export default function Login(){
             console.log(res.data)
             setUser(res.data)
             history.push('/hoje')
+            setLoading(false)
         })
 
         .catch(err => {
+            setLoading(false)
             console.log(err)        
             alert("tente novamente")
         })
     }
 
     return (
-        <Container habilitado={enabled}>
+        <Container loading={loading}>
             <Logo src={logo}/>
 
             <form onSubmit={Entrar}>
@@ -84,9 +87,10 @@ const Container = styled.div`
         margin: 0 auto 6px auto;
         font-size: 19.976px;
         line-height: 25px;
-        color: #DBDBDB;
-        opacity: ${props => props.habilitado ? 1 : 0.7};    
-        background: ${props => props.habilitado ? "#FFFFFF" : "#F2F2F2"};    
+        color: black;
+        opacity: ${props => props.loading ? 0.7 : 1};    
+        background: ${props => props.loading ? "#F2F2F2" : "#FFFFFF"};  
+        pointer-events: ${props => props.loading ? "none" : "visiblePainted"};
     }
 
     button{
@@ -101,7 +105,8 @@ const Container = styled.div`
         line-height: 26px;
         text-align: center;
         color: #FFFFFF;
-        opacity: ${props => props.habilitado ? 1 : 0.7};
+        opacity: ${props => props.loading ? 0.7 : 1};
+        pointer-events: ${props => props.loading ? "none" : "visiblePainted"};
     }
 
     form {

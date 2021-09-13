@@ -10,7 +10,7 @@ export default function Hoje(){
 
     const completo = true;
 
-    const {user, setUser} = useContext(UserContext);
+    const {user} = useContext(UserContext);
     const [habitos, setHabitos] = useState()
 
     //para listar os habitos de hoje
@@ -33,37 +33,6 @@ export default function Hoje(){
     }, []);
 
 
-    function Check(id){
-        const config = {
-            headers:{
-                Authorization: `Bearer ${user.token}`
-            }
-        }
-
-        //console.log(config)
-
-        axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`, {}, config)
-        .then(res => {
-            //console.log(res.data)
-        })    
-    }
-   
-    function Uncheck(id){
-       
-        const config = {
-            headers:{
-                Authorization: `Bearer ${user.token}`
-            }
-        }
-
-        axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`, {}, config)
-        .then(res => {
-            //console.log(res.data)
-        })       
-
-    }  
-
-
     return (
         <>
          <Topo/>
@@ -75,7 +44,8 @@ export default function Hoje(){
   
              { (habitos !== undefined) ? 
                     habitos.map((habito) => (
-                        <HabitosdoDia habito={habito}/>                          
+                        <HabitosdoDia habito={habito}
+                        habitos={habitos} setHabitos={setHabitos}/>                          
                 )) 
                 :
                 null                    

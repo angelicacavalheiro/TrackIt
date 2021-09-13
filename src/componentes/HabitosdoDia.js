@@ -1,13 +1,20 @@
 import styled from 'styled-components';
-import { useContext } from 'react';
+import ionicons from 'ionicons';
+import { useContext, useState, useEffect } from 'react';
 import axios from "axios"
 import UserContext from '.././contexts/UserContext';
+import Hoje from './Hoje';
 
-export default function HabitosdoDia({habito}){
+export default function HabitosdoDia({habito, habitos, setHabitos}){
 
     const {user} = useContext(UserContext);
+    const [concluido, setConcluido] = useState("#EBEBEB");
 
-    function Check(id){
+    function Check({habito}){
+        setConcluido("#8FC549");
+        let id = (habito.id)
+        console.log("entrou em check")
+
         const config = {
             headers:{
                 Authorization: `Bearer ${user.token}`
@@ -18,11 +25,18 @@ export default function HabitosdoDia({habito}){
 
         axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`, {}, config)
         .then(res => {
-            console.log(res.data)
+            console.log("enviou para o servidor")
+            
         })    
+
     }
+
    
-    function Uncheck(id){
+    function Uncheck({habito}){
+
+        setConcluido("#EBEBEB");
+        let id = (habito.id)    
+        console.log("entrou em uncheck")
        
         const config = {
             headers:{
@@ -33,10 +47,9 @@ export default function HabitosdoDia({habito}){
         axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`, {}, config)
         .then(res => {
             console.log(res.data)
-        })       
-
+            console.log("deu uncheck")
+        })      
     }  
-
 
     return(
         <MostrarHabitos>
@@ -46,10 +59,10 @@ export default function HabitosdoDia({habito}){
                     <h2>Sequência atual: {habito.currentSequence} dias </h2>
                     <h2>Seu recorde: {habito.highestSequence} dias</h2>
                 </div>   
-                { (habito.done === true) ?
-                    <ion-icon name="checkmark-outline" concluido={true}></ion-icon> 
+                {(habito.done === true) ?
+                    <ion-icon name="checkmark-outline" onClick={() => Uncheck({habito})} value={concluido}></ion-icon>                   
                     : 
-                    <ion-icon name="checkmark-outline" concluido={false}></ion-icon>
+                    <ion-icon name="checkmark-outline" onClick={() => Check({habito})} value={concluido}></ion-icon> 
                     }
             
             </div>
@@ -99,9 +112,11 @@ const MostrarHabitos = styled.div`
      ion-icon{
         width: 69px;
         height: 69px;
-        background: ${props => props.concluido ? "#8FC549" : "#EBEBEB"}; 
+        background-color: #EBEBEB;
+        //background:  ${(props) => props.value};
         border-radius: 5px; 
         padding: 0px;
         color: #FFFFFF;
      }
  `;
+

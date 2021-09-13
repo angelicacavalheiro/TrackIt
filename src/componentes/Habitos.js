@@ -7,7 +7,6 @@ import { useEffect, useContext, useState } from 'react';
 import axios from "axios"
 import UserContext from '.././contexts/UserContext';
 
-
 export default function Habitos(){   
 
     const {user, setUser} = useContext(UserContext);
@@ -30,13 +29,14 @@ export default function Habitos(){
         .then(res => {
             console.log(res.data)
             setListaHabito(res.data)
-        })        
+                       
+        })    
+           
 
     }, []);
 
-
-
     return (
+
        <>
         <Topo/>
         <Container>
@@ -45,13 +45,18 @@ export default function Habitos(){
                 <button onClick={adicionaHabito} > + </button>                
             </AbrirHabito>  
 
-            {(adicionarHabito === true) ? <CriarHabito /> : null }
+            {(adicionarHabito === true) ? <CriarHabito 
+            adicionarHabito={adicionarHabito} 
+            setAdicionarHabito={setAdicionarHabito}
+            setListaHabito={setListaHabito}
+            /> 
+            :
+            null }
 
             {(listaHabito.length > 0) ?  
                 listaHabito.map((habito) => (
                     <MostrarHabito habito={habito} 
-                    listaHabito={listaHabito} 
-                    setListaHabito={setListaHabito} />
+                    />
                 ))
                 :
                 <NenhumHabito>
@@ -107,8 +112,7 @@ const NenhumHabito = styled.div`
     font-size: 17.976px;
     line-height: 22px;
     color: #666666;
-    margin: 0 auto;
-  
+    margin: 0 auto;  
 `;
 
 
