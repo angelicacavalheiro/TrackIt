@@ -15,21 +15,23 @@ export default function Menu(){
             <Link to={`/habitos`} style={{textDecoration: 'none'}}>
                 <p>Habitos</p>
             </Link>
-            <Link to={`/hoje`} style={{textDecoration: 'none'}}>
-                <CircularProgressbar
-                    value={porcentagem}
-                    text="hoje"
-                    background
-                    backgroundPadding={6}
-                    styles={buildStyles({
-                    backgroundColor: "#52b6ff",                  
-                    textSize: 18,
-                    textColor: "#fff",
-                    pathColor: "#fff",
-                    trailColor: "transparent"
-                    })}
-                    />
-            </Link>
+            <Evolucao>
+                <Link to={`/hoje`} style={{textDecoration: 'none'}}>
+                    <CircularProgressbar
+                        value={porcentagem}
+                        text="Hoje"
+                        background
+                        backgroundPadding={6}
+                        styles={buildStyles({
+                        backgroundColor: "#52b6ff",                  
+                        textSize: 18,
+                        textColor: "#fff",
+                        pathColor: "#fff",
+                        trailColor: "transparent"
+                        })}
+                        />
+                </Link>
+            </Evolucao>
             <Link to={`/historico`} style={{textDecoration: 'none'}}>
                 <p>Historico</p> 
             </Link>                  
@@ -56,4 +58,11 @@ const Container = styled.div`
         text-align: center;
         color: #52B6FF;
     }
+`;
+
+const Evolucao = styled.span `
+    width: 91px;
+    height: 91px;
+    margin-bottom: 30px;
+    font-family: Lexend Deca;     
 `;

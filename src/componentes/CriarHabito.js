@@ -3,12 +3,11 @@ import { useEffect, useContext, useState } from 'react';
 import axios from "axios"
 import UserContext from '.././contexts/UserContext';
 import Dias from './Dias';
+import Loader from "react-loader-spinner";
 
-export default function CriarHabito({setAdicionarHabito, setListaHabito}){
+export default function CriarHabito({setAdicionarHabito, setListaHabito, name, setName, days, setDays}){
     
     const {user, setUser} = useContext(UserContext);
-    const[name, setName] = useState("");
-    const[days, setDays] = useState([]);
     const[loading, setLoading] = useState(false)  
 
 
@@ -30,6 +29,8 @@ export default function CriarHabito({setAdicionarHabito, setListaHabito}){
             console.log(res.data)
             setAdicionarHabito(false)
             setLoading(false)
+            setName("")
+            setDays([])
 
             const config = {
                 headers:{
@@ -41,6 +42,7 @@ export default function CriarHabito({setAdicionarHabito, setListaHabito}){
             .then(res => {
                 console.log(res.data)
                 setListaHabito(res.data)
+
                            
             })    
 
@@ -49,6 +51,8 @@ export default function CriarHabito({setAdicionarHabito, setListaHabito}){
             setLoading(false)
             console.log(err)                
             alert("tente novamente")
+            setName("")
+            setDays([])
         }) 
         } else if (name ==="" || days ===[]){
             alert("preencha todos os campos")
@@ -59,10 +63,6 @@ export default function CriarHabito({setAdicionarHabito, setListaHabito}){
     function Cancelar(){       
         setAdicionarHabito(false)      
     }   
-    
-
-    console.log(days)
-
 
     return (
         <Criar loading={loading}>
@@ -71,7 +71,9 @@ export default function CriarHabito({setAdicionarHabito, setListaHabito}){
                 <Dias loading={loading} days={days} setDays={setDays} />    
                 <SalvarHabito loading={loading}>
                     <p onClick={Cancelar}> Cancelar </p>
-                    <button onClick={Salvar}> Salvar </button>
+                    {(loading === true) ? 
+                    <button> <Loader type="ThreeDots" color="#FFFFFF" height={35} width={40} /> </button>
+                    : <button onClick={Salvar}> Salvar </button>}
                 </SalvarHabito>                        
             </Criar>                  
     )

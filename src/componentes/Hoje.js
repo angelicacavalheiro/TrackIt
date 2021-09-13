@@ -15,7 +15,9 @@ export default function Hoje(){
     const {user, porcentagem, setPorcentagem} = useContext(UserContext);
     const [habitos, setHabitos] = useState()
 
-    //para listar os habitos de hoje
+    let done = (porcentagem > 0) ? "#8FC549" : "#BABABA";
+    const [concluido, setConcluido] = useState(done);
+
 
     useEffect(() => {
 
@@ -41,17 +43,19 @@ export default function Hoje(){
 
         setPorcentagem( (arrayDone.length / arraydeHabitos.length ) * 100 )
 
-
+        let done = ((arrayDone.length / arraydeHabitos.length ) * 100 > 0) ? "#8FC549" : "#BABABA";
+        setConcluido(done);
     }
 
 
     return (
         <>
          <Topo/>
-         <Container completado={completo}>
-             <ConclusaoDeHabito>
-                 <p> {dayjs().locale('pt-br').format('dddd')} {dayjs().locale('pt-br').format('DD/MM')} </p>
-                 <h1> {porcentagem} </h1>
+         <Container>
+             <ConclusaoDeHabito value={concluido}>
+                 <p> {dayjs().locale('pt-br').format('dddd')}, {dayjs().locale('pt-br').format('DD/MM')} </p>
+                 <h1> {(porcentagem == 0) ? "Nenhum hábito concluído ainda" :
+                  `${porcentagem}% dos hábitos concluídos`} </h1>
              </ConclusaoDeHabito>   
   
              { (habitos !== undefined) ? 
@@ -65,7 +69,6 @@ export default function Hoje(){
              }                         
             
          </Container>
-         <Menu porcentagem={porcentagem}/>
         </>
      )
  }
@@ -75,7 +78,8 @@ export default function Hoje(){
      width: 100vw;
      height: 100%;
      padding-top: 80px;   
-     padding-bottom: 80px;   
+     padding-bottom: 80px;  
+     font-family: Lexend Deca; 
  `;
  
  const ConclusaoDeHabito = styled.div`
@@ -96,7 +100,7 @@ export default function Hoje(){
      h1{
         font-size: 17.976px;
         line-height: 22px;
-        color: #BABABA;
+        color: ${(props) => props.value};
      }
     
      

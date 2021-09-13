@@ -50,7 +50,7 @@ export default function Login(){
                 value={senha} onChange={(e) => setSenha(e.target.value)}/>
 
                 {(loading === true) ? 
-                <button> <Loader type="ThreeDots" color="#00BFFF" height={80} width={80} /> </button>
+                <button> <Loader type="ThreeDots" color="#FFFFFF" height={45} width={80} /> </button>
                  : <button onClick={Entrar}> Entrar </button>}
 
             </form>

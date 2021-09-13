@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { useContext, useState } from 'react';
 import axios from "axios"
 import UserContext from '.././contexts/UserContext';
-import Habitos from "./Habitos"
 import MostrarDias from './MostrarDias';
 
 

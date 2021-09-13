@@ -3,17 +3,14 @@ import { useState } from 'react';
 
 export default function Dias({loading, days, setDays}){
 
-    const[colorir, setColorir] = useState(false) 
-
     function incrementaDia(dia){
       
         setDays([...days, dia]) //logica pra incrementar ok!
+       
 
         days.forEach((day) => {
-            if (day===dia){ //logica pra decrementar ok!
-                setColorir(true)  
+            if (day===dia){ //logica pra decrementar ok!  
 
-                console.log("vou remover");
                 let arrayDias = [...days]; 
                 let index = arrayDias.indexOf(day)  
                 if (index !== -1) {
@@ -25,31 +22,32 @@ export default function Dias({loading, days, setDays}){
             })
     }
 
-    return(
-        <TodoOsDias loading={loading} colorir={colorir} >
-            <button onClick= {() => incrementaDia(0)}> D </button>
-            <button onClick= {() => incrementaDia(1)}> S </button>
-            <button onClick= {() => incrementaDia(2)}> T </button>
-            <button onClick= {() => incrementaDia(3)}> Q </button>
-            <button onClick= {() => incrementaDia(4)}> Q </button>
-            <button onClick= {() => incrementaDia(5)}> S </button>
-            <button onClick= {() => incrementaDia(6)}> S </button>
-        </TodoOsDias>
+    function colorirDia(dia){
+        const diaClicado = days.includes(dia);
 
+        console.log(diaClicado)
+
+        return(diaClicado)
+      
+    }
+
+
+
+
+    return(
+        <TodoOsDias loading={loading} >
+            <StyledButton onClick= {() => incrementaDia(0)} colorir={colorirDia(0)}> D </StyledButton>
+            <StyledButton onClick= {() => incrementaDia(1)} colorir={colorirDia(1)}> S </StyledButton>
+            <StyledButton onClick= {() => incrementaDia(2)} colorir={colorirDia(2)}> T </StyledButton>
+            <StyledButton onClick= {() => incrementaDia(3)} colorir={colorirDia(3)}> Q </StyledButton>
+            <StyledButton onClick= {() => incrementaDia(4)} colorir={colorirDia(4)}> Q </StyledButton>
+            <StyledButton onClick= {() => incrementaDia(5)} colorir={colorirDia(5)}> S </StyledButton>
+            <StyledButton onClick= {() => incrementaDia(6)} colorir={colorirDia(6)}> S </StyledButton>
+        </TodoOsDias>
     )
 }
 
-    const TodoOsDias = styled.div`
-    width: 234px;
-    height: 50px;
-    display:flex;
-    align-items: center;
-    justify-content: space-around;
-    background: #FFFFFF;
-    margin-left: 19px;
-    color: #DBDBDB;   
-    
-    button{
+    const StyledButton = styled.button`
         width: 30px;
         height: 30px;
         font-family: Lexend Deca;
@@ -62,8 +60,19 @@ export default function Dias({loading, days, setDays}){
         pointer-events: ${props => props.loading ? "none" : "visiblePainted"};
         color: ${props => props.colorir ? "#FFFFFF" : "#DBDBDB"};
         background: ${props => props.colorir ? "#CFCFCF" : "#FFFFFF"}; 
+    `;
 
-    }
+
+    const TodoOsDias = styled.div`
+    width: 234px;
+    height: 50px;
+    display:flex;
+    align-items: center;
+    justify-content: space-around;
+    background: #FFFFFF;
+    margin-left: 19px;
+    color: #DBDBDB;   
     
 `;
+
 

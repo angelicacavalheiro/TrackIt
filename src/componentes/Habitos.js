@@ -12,6 +12,8 @@ export default function Habitos(){
     const {user, setUser} = useContext(UserContext);
     const [adicionarHabito, setAdicionarHabito] = useState(false);
     const [listaHabito, setListaHabito] = useState([])
+    const [name, setName] = useState("");
+    const [days, setDays] = useState([]);
 
     function adicionaHabito(){
         setAdicionarHabito(true)  
@@ -49,6 +51,8 @@ export default function Habitos(){
             adicionarHabito={adicionarHabito} 
             setAdicionarHabito={setAdicionarHabito}
             setListaHabito={setListaHabito}
+            name={name} setName={setName}
+            days={days} setDays={setDays}
             /> 
             :
             null }
@@ -66,7 +70,6 @@ export default function Habitos(){
             }                        
     
         </Container>
-        <Menu/>
        </>
     )
 }

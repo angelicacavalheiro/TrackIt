@@ -36,13 +36,8 @@ export default function MostrarDias({habito}){
         :    
         null     
     ))}
-
-
-   }
-   
-  
+   }  
    , [])
-
 
     return(      
         

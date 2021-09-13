@@ -1,9 +1,7 @@
 import styled from 'styled-components';
-import ionicons from 'ionicons';
 import { useContext, useState, useEffect } from 'react';
 import axios from "axios"
 import UserContext from '.././contexts/UserContext';
-import Hoje from './Hoje';
 
 export default function HabitosdoDia({habito, calcularPorcentagem, setHabitos}){
 
@@ -14,7 +12,6 @@ export default function HabitosdoDia({habito, calcularPorcentagem, setHabitos}){
     function Check(){
         setConcluido("#8FC549");
         let id = (habito.id)
-        console.log("entrou em check")
 
         const config = {
             headers:{
@@ -22,11 +19,8 @@ export default function HabitosdoDia({habito, calcularPorcentagem, setHabitos}){
             }
         }
 
-        console.log(config)
-
         axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`, {}, config)
         .then(res => {
-            console.log("enviou para o servidor")
 
             const config = {
                 headers:{
@@ -38,19 +32,15 @@ export default function HabitosdoDia({habito, calcularPorcentagem, setHabitos}){
             .then(res => {
                 setHabitos(res.data)
                 calcularPorcentagem(res.data)
-            })        
-    
-            
+            })       
+
         })    
-
     }
-
    
     function Uncheck(){
 
         setConcluido("#EBEBEB");
         let id = (habito.id)    
-        console.log("entrou em uncheck")
        
         const config = {
             headers:{
@@ -60,10 +50,7 @@ export default function HabitosdoDia({habito, calcularPorcentagem, setHabitos}){
 
         axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`, {}, config)
         .then(res => {
-            console.log(res.data)
-            console.log("deu uncheck")
-
-            const config = {
+                const config = {
                 headers:{
                     Authorization: `Bearer ${user.token}`
                 }
@@ -71,12 +58,9 @@ export default function HabitosdoDia({habito, calcularPorcentagem, setHabitos}){
     
             axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', config)
             .then(res => {
-                //console.log(res.data)
                 setHabitos(res.data)
-                //console.log(habitos)
                 calcularPorcentagem(res.data)
-            })        
-    
+            })            
         })      
     }  
 
@@ -134,7 +118,6 @@ const MostrarHabitos = styled.div`
          div{
             display: flex;
             flex-direction: column;
-
          }
      }
 

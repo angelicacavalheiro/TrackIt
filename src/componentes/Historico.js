@@ -16,7 +16,6 @@ export default function Hoje(){
              </Descricao>
    
          </Container>
-         <Menu/>
         </>
      )
  }

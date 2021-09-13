@@ -3,6 +3,7 @@ import logo from '.././assets/logo.png';
 import { Link, useHistory } from "react-router-dom";
 import { useState } from 'react';
 import axios from "axios"
+import Loader from "react-loader-spinner";
 
 export default function Cadastro(){
 
@@ -52,7 +53,11 @@ export default function Cadastro(){
                 value={nome} onChange={(e) => setNome(e.target.value)}/>
                 <input type="URL" foto="input" required placeholder="foto"
                 value={foto} onChange={(e) => setFoto(e.target.value)} />
-                <button onClick={Cadastrar}> Cadastrar </button>
+
+                {(loading === true) ? 
+                <button> <Loader type="ThreeDots" color="#FFFFFF" height={45} width={80} /> </button>
+                 : <button onClick={Cadastrar}> Cadastrar </button>}
+
                 <Link to={`/`} style={{textDecoration: 'none'}}>
                     <p>Já tem uma conta? Faça login!</p>
                 </Link>
